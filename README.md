@@ -19,13 +19,13 @@ Chaque membre du groupe présente ci-dessous sa compétence de spécialité et s
   *Justification :* Stage effectué au sein d'une association, avec réalisation complète d'un site internet en PHP mis en production chez un hébergeur. Élaboration du site de A à Z en autonomie, en traduisant les besoins d'une interlocutrice sans compétences informatiques en un produit fonctionnel et adapté.
 - **Soft skills clés :** Travail en autonomie, communication client (traduire un besoin non technique en solution technique)
 
-### [Nom Prénom]
+### DUMEZ Apollinaire
  
-- **Compétence de spécialité :** [ex. Backend / Frontend / IoT / Design / Gestion de projet]
-  *Justification :* [pourquoi cette compétence, quelle expérience l'illustre]
-- **Compétences de couverture :** [autres domaines où la personne peut apporter une contribution ou apprendre rapidement]
-  *Justification :* [expérience ou motivation à l'appui]
-- **Soft skills clés :** [ex. autonomie, communication client, gestion du temps]
+- **Compétence de spécialité : Base de données, Backend 
+  *Justification : compétence acquise durant mon stage de 2ème année en traitement de la donnée à Airbus dans le secteur du Manufacturing Engineering, démontrant un savoir-faire et une rigueur particulière à adopter sur ce projet
+- **Compétences de couverture : Gestion de projet / Agile, Documentation
+  *Justification : apprentissage de la méthodologie Agile en 2ème année, j'ai été très intéressé par cette organisation professionnelle et j'ai pu la mettre en pratique durant mon stage de 2ème dans de certaines mesures. Commpétence clé afin de bien pouvoir communiquer et progresser sur un projet comme celui-ci
+- **Soft skills clés : autonomie, organisation, clarté
 
 
 # Répartition des rôles (garants de domaine)
