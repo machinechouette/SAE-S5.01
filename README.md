@@ -19,13 +19,21 @@ Chaque membre du groupe présente ci-dessous sa compétence de spécialité et s
   *Justification :* Stage effectué au sein d'une association, avec réalisation complète d'un site internet en PHP mis en production chez un hébergeur. Élaboration du site de A à Z en autonomie, en traduisant les besoins d'une interlocutrice sans compétences informatiques en un produit fonctionnel et adapté.
 - **Soft skills clés :** Travail en autonomie, communication client (traduire un besoin non technique en solution technique)
 
-### DUMEZ Apollinaire
+### Apollinaire
  
-- **Compétence de spécialité : Base de données, Backend 
-  *Justification : compétence acquise durant mon stage de 2ème année en traitement de la donnée à Airbus dans le secteur du Manufacturing Engineering, démontrant un savoir-faire et une rigueur particulière à adopter sur ce projet
-- **Compétences de couverture : Gestion de projet / Agile, Documentation
-  *Justification : apprentissage de la méthodologie Agile en 2ème année, j'ai été très intéressé par cette organisation professionnelle et j'ai pu la mettre en pratique durant mon stage de 2ème dans de certaines mesures. Commpétence clé afin de bien pouvoir communiquer et progresser sur un projet comme celui-ci
-- **Soft skills clés : autonomie, organisation, clarté
+- **Compétence de spécialité :** Base de données, Backend 
+  *Justification :* compétence acquise durant mon stage de 2ème année en traitement de la donnée à Airbus dans le secteur du Manufacturing Engineering, démontrant un savoir-faire et une rigueur particulière à adopter sur ce projet
+- **Compétences de couverture :** Gestion de projet / Agile, Documentation
+  *Justification :* apprentissage de la méthodologie Agile en 2ème année, j'ai été très intéressé par cette organisation professionnelle et j'ai pu la mettre en pratique durant mon stage de 2ème dans de certaines mesures. Commpétence clé afin de bien pouvoir communiquer et progresser sur un projet comme celui-ci
+- **Soft skills clés :** autonomie, organisation, clarté
+
+### Reda
+
+- **Compétence de spécialité :** Backend, bases de données et architectures client-serveur.
+  *Justification :* Expérience professionnelle validée lors d'un stage suivi d'un CDD chez Servair, avec le développement d'une application de logistique de catering aérien. Pour ce projet, j'ai notamment mis en place des Server-Sent Events avec Spring Boot pour gérer les flux de données, ce qui répond directement à la contrainte de la SAÉ exigeant une solution robuste basée sur une architecture distribuée via API.
+- **Compétences de couverture :** Recueil de besoin, Frontend (JavaScript natif, HTML5, CSS3).
+  *Justification :* Le recueil de besoin et l'analyse ont été des étapes centrales lors du développement de l'application logistique réalisé durant le stage et la refonte du site de l'association, me permettant de bien structurer le projet avant de coder.
+- **Soft skills clés :** Adaptabilité, capacité d'analyse et de traduction des besoins, autonomie et rigueur technique.
 
 
 # Répartition des rôles (garants de domaine)
