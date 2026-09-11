@@ -4,7 +4,7 @@ Projet réalisé dans le cadre de la SAÉ S5.01, en méthode agile, sue le thèm
 
 ## Groupe
 - Groupe 303-304
-- Membres : BOUKHIMA Reda,DUMEZ Apollinaire, PEREIRA Tiago, PERITO Maïssane
+- Membres : BOUKHIMA Reda,DUMEZ Apollinaire, PEREIRA DE BARROS Tiago, PERITO Maïssane
 - Enseignants référents : Jérome Fessy, Laurent Guitignano
 
 ## Mission 0 — Audit de compétences et constitution de l'équipe
@@ -34,6 +34,14 @@ Chaque membre du groupe présente ci-dessous sa compétence de spécialité et s
 - **Compétences de couverture :** Recueil de besoin, Frontend (JavaScript natif, HTML5, CSS3).
   *Justification :* Le recueil de besoin et l'analyse ont été des étapes centrales lors du développement de l'application logistique réalisé durant le stage et la refonte du site de l'association, me permettant de bien structurer le projet avant de coder.
 - **Soft skills clés :** Adaptabilité, capacité d'analyse et de traduction des besoins, autonomie et rigueur technique.
+
+### Tiago
+ 
+- **Compétence de spécialité :** Frontend, Test
+  *Justification :* Développement et tests de composants React et réalisation de tests BFF, avec la réalisation de tickets durant mon stage de 2ème année au sein de l'équipe Okapi du Groupe La Poste.
+- **Compétences de couverture :** Backend
+  *Justification :* Découverte du fonctionnement du backend et de ses liens avec le frontend, la base de données, le cache et la gateway durant mon stage de 2ᵉ année au sein de l’équipe Okapi du Groupe La Poste.
+- **Soft skills clés :** autonomie, organisation
 
 
 # Répartition des rôles (garants de domaine)
