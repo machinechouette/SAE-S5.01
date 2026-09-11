@@ -38,9 +38,9 @@ Chaque membre du groupe présente ci-dessous sa compétence de spécialité et s
 ### Tiago
  
 - **Compétence de spécialité :** Frontend, Test
-  *Justification :* Développement et tests de composants React et réalisation de tests BFF, avec la réalisation de tickets durant mon stage de 2ème année au sein de l'équipe Okapi du Groupe La Poste.
+  *Justification :* Développement et tests de composants React et réalisation de tests BFF, avec la réalisation de tickets durant mon stage de 2ème année au sein de l'équipe Okapi du Groupe La Poste. (React, NextJS, TypeScript, Jest, React Testing Library)
 - **Compétences de couverture :** Backend
-  *Justification :* Découverte du fonctionnement du backend et de ses liens avec le frontend, la base de données, le cache et la gateway durant mon stage de 2ᵉ année au sein de l’équipe Okapi du Groupe La Poste.
+  *Justification :* Découverte du fonctionnement du backend et de ses liens avec le frontend, la base de données, le cache et la gateway durant mon stage de 2ᵉ année au sein de l’équipe Okapi du Groupe La Poste. (NodeJS, ExpressJS, GraphQL, MongoDB, Redis)
 - **Soft skills clés :** autonomie, organisation
 
 
