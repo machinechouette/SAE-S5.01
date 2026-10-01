@@ -48,14 +48,14 @@ Chaque membre du groupe présente ci-dessous sa compétence de spécialité et s
  
 | Domaine              | Garant(e)       | Backup(s)       |
 |-----------------------|-----------------|------------------|
-| Frontend              |                 |                  |
-| Backend               |                 |                  |
-| Base de données       |                 |                  |
-| IoT / Capteurs        |                 |                  |
-| Architecture distribuée (API / Message Broker) |  |  |
-| Tests / Qualité       |                 |                  |
-| Documentation         |                 |                  |
-| Gestion de projet / Agile |             |                  |
+| Frontend              |        Tiago         |          Maïssane        |
+| Backend               |         Abdellah        |          Reda        |
+| Base de données       |         Apollinaire        |          Reda        |
+| IoT / Capteurs        |        Maïssane         |         Tiago         |
+| Architecture distribuée (API / Message Broker) | Reda | Tiago |
+| Tests / Qualité       |       Tiago          |         Maïssane         |
+| Documentation         |        Maïssane         |          Tiago        |
+| Gestion de projet / Agile |     Maïssane        |          Apollinaire        |
  
 *Note : ces rôles ne sont pas figés — l'objectif est d'assurer une couverture de tous les piliers du projet, pas de cloisonner les membres.*
  
