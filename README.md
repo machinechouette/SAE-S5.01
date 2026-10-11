@@ -4,7 +4,7 @@ Projet réalisé dans le cadre de la SAÉ S5.01, en méthode agile, sue le thèm
 
 ## Groupe
 - Groupe 303-304
-- Membres : BOUKHIMA Reda,DUMEZ Apollinaire, PEREIRA DE BARROS Tiago, PERITO Maïssane
+- Membres : BOUKHIMA Reda,DUMEZ Apollinaire, PEREIRA DE BARROS Tiago, PERITO Maïssane, HANTOUTE Abdellah
 - Enseignants référents : Jérome Fessy, Laurent Guitignano
 
 ## Mission 0 — Audit de compétences et constitution de l'équipe
@@ -52,7 +52,7 @@ Chaque membre du groupe présente ci-dessous sa compétence de spécialité et s
 | Backend               |         Abdellah        |          Reda        |
 | Base de données       |         Apollinaire        |          Reda        |
 | IoT / Capteurs        |        Maïssane         |         Tiago         |
-| Architecture distribuée (API / Message Broker) | Reda | Tiago |
+| Architecture distribuée (API / Message Broker) | Reda | Abdellah |
 | Tests / Qualité       |       Tiago          |         Maïssane         |
 | Documentation         |        Maïssane         |          Tiago        |
 | Gestion de projet / Agile |     Maïssane        |          Apollinaire        |
