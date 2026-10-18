@@ -6,3 +6,7 @@ Semaine du 5/10/2026 au 11/10/2026 :
  - Mise en ligne de ces squelettes sur ma branche abdellah.
 
 Semaine du 12/10/2026 au 18/10/2026 :
+
+ - Analyse du plan de projet (contrats API / MQTT / WebSocket, calendrier jusqu'au 4 décembre) pour préparer la réunion de lundi.
+ - Implémentation du moteur de jeu : machine à états, chrono basé sur une heure de fin avec défaite automatique, validation du poids du module 2 (tolérance + stabilité 2 s), mot de passe final, indices à 3 niveaux limités à 2 réponses.
+ - Première API REST FastAPI jouable sans matériel, et 17 tests unitaires du moteur avec pytest.
