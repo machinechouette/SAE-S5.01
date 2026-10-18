@@ -3,3 +3,4 @@ Semaine du 5/10/2026 au 11/10/2026 :
  - Confrontation des idées de gameplay (le Cyberdeck, la balance, les capteurs) avec la réalité technique pour s'assurer que les concepts du GDD sont techniquement viables pour le jalon du Prototype (MVP), sans que la charge de travail côté backend ne devienne ingérable.
 
 Semaine du 12/10/2026 au 18/10/2026 :
+ - Analyse du protocole MQTT (Mosquitto) retenu dans la stack technologique du projet : système de requêtes par événements sur des topics dédiés
