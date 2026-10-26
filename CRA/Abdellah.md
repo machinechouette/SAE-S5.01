@@ -10,3 +10,9 @@ Semaine du 12/10/2026 au 18/10/2026 :
  - Analyse du plan de projet (contrats API / MQTT / WebSocket, calendrier jusqu'au 4 décembre) pour préparer la réunion de lundi.
  - Implémentation du moteur de jeu : machine à états, chrono basé sur une heure de fin avec défaite automatique, validation du poids du module 2 (tolérance + stabilité 2 s), mot de passe final, indices à 3 niveaux limités à 2 réponses.
  - Première API REST FastAPI jouable sans matériel, et 17 tests unitaires du moteur avec pytest.
+
+Semaine du 19/10/2026 au 25/10/2026 :
+
+ - Discussion en équipe sur le matériel nécessaire au projet.
+ - Remise en question et révision de l'architecture de notre programme.
+ - Définition des prochaines étapes et des objectifs à atteindre pendant les vacances.
