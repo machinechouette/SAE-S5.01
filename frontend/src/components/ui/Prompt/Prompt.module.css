@@ -13,3 +13,11 @@
     vertical-align: middle;
     animation: clignote 1s steps(1) infinite;
 }
+
+@keyframes clignote {
+  50% { opacity: 0; }
+}
+
+.fixe {
+  animation: none;
+}
