@@ -1,0 +1,25 @@
+:root {
+  --fond: #04090a;
+
+  --texte: #d7f5e4;
+  --texte-secondaire: #7fa391;
+
+  --vert: #39ff88;
+  --cyan: #00f0ff;
+  --magenta: #ff2a6d;
+  --jaune: #f9f002;
+
+  --masque: #2a4a40; 
+
+  --touche-a: #3ddc84; 
+  --touche-b: #ff4d5e;
+  --touche-x: #4d8dff;
+  --touche-y: #ffd23f; 
+
+  --police: "JetBrains Mono", monospace;
+
+  --taille-petite: 16px;
+  --taille-normale: 24px;
+  --taille-grande: 44px;
+  --taille-geante: 100px;
+}

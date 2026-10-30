@@ -1,0 +1,29 @@
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
+@import "./variables.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100vh;
+}
+
+body {
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--police);
+  font-size: var(--taille-normale);
+  overflow: hidden;
+  user-select: none;
+}
+
+button {
+  font-family: inherit;
+}

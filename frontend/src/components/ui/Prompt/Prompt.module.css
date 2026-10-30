@@ -1,0 +1,14 @@
+.lignes{
+    font-size: var(--taille-normale);
+    font-family: var(--police);
+    color: var(--texte);
+}
+
+.curseur{
+    display: inline-block;
+    width: 14px;
+    height: 26px;
+    background: var(--vert);
+    vertical-align: middle;
+    animation: clignote 1s steps(1) infinite;
+}
