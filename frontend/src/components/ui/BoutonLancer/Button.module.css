@@ -1,0 +1,34 @@
+.bouton {
+  min-height: 56px;
+  padding: 0 36px;
+  border: none;
+  background: var(--couleur-bouton, var(--vert));
+  color: var(--fond);
+  font-family: var(--police);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+
+  /* coins coupés en biais : en haut à gauche et en bas à droite */
+  clip-path: polygon(
+    14px 0,
+    100% 0,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    0 100%,
+    0 14px
+  );
+
+  transition: filter 0.15s;
+}
+
+.bouton:hover,
+.bouton:focus-visible {
+  filter: brightness(1.25);  /* un peu plus lumineux */
+  outline: none;
+}
+
+.bouton:active {
+  filter: brightness(0.85);  /* effet « enfoncé » au clic */
+}

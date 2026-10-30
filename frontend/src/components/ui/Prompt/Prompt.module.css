@@ -1,7 +1,8 @@
 .lignes{
     font-size: var(--taille-normale);
     font-family: var(--police);
-    color: var(--texte);
+    color: var(--vert);
+    margin-bottom: 10px;
 }
 
 .curseur{
