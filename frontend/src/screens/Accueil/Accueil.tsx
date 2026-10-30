@@ -1,4 +1,4 @@
-import Button from "../../components/ui/BoutonLancer/Button";
+import Button from "../../components/ui/Button/Button";
 import Prompt from "../../components/ui/Prompt/Prompt";
 import styles from "./Accueil.module.css";
 
