@@ -10,7 +10,6 @@
   letter-spacing: 0.05em;
   cursor: pointer;
 
-  /* coins coupés en biais : en haut à gauche et en bas à droite */
   clip-path: polygon(
     14px 0,
     100% 0,
@@ -25,10 +24,10 @@
 
 .bouton:hover,
 .bouton:focus-visible {
-  filter: brightness(1.25);  /* un peu plus lumineux */
+  filter: brightness(1.25);
   outline: none;
 }
 
 .bouton:active {
-  filter: brightness(0.85);  /* effet « enfoncé » au clic */
+  filter: brightness(0.85);
 }
