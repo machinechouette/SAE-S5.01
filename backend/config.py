@@ -8,7 +8,7 @@ MAX_ANSWERS = 2
 PASSWORD = "HOPPER"
 
 # Vertical slice: only module 2 is playable for now
-ACTIVE_MODULES = ("module_2",)
+ACTIVE_MODULES = ("MODULE_2",)
 
 # Module 2 - provisional values, to adjust after weighing the beads
 TARGET_WEIGHT_G = 12.0
@@ -18,7 +18,7 @@ STABLE_SECONDS = 2.0
 # TODO: provisional texts, to be replaced by the ones stored in the database
 HINT_TEXTS = {
     n: [f"Light hint for module {n}", f"Precise hint for module {n}", f"Answer for module {n}"]
-    for n in range(1, 5)
+    for n in range(1, 6)
 }
 
 MQTT_HOST = "localhost"

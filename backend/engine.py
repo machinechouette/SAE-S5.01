@@ -19,19 +19,23 @@ Clock = Callable[[], float]
 
 
 class Phase(str, Enum):
-    HOME = "home"
-    MODULE_1 = "module_1"  # controls: color sequence on the Xbox controller
-    MODULE_2 = "module_2"  # sensors: right weight on the scale (ESP32)
-    MODULE_3 = "module_3"  # data: USB keys + coded message
-    MODULE_4 = "module_4"  # system: component cards + final password
-    CHOICE = "choice"
-    END_FREE = "end_free"
-    END_CLOSED = "end_closed"
-    END_DEFEAT = "end_defeat"
-    HOPPER = "hopper"
+    # Values match the phase names used by the frontend (frontend/src/types/game.ts)
+    HOME = "ACCUEIL"
+    HUB = "HUB"  # main screen: timer + state of the 5 modules
+    MODULE_1 = "MODULE_1"  # controls: color sequence on the Xbox controller
+    MODULE_2 = "MODULE_2"  # sensors: right weight on the scale (ESP32)
+    MODULE_3 = "MODULE_3"  # data: USB keys + coded message
+    MODULE_4 = "MODULE_4"  # system: component cards + final password
+    MODULE_5 = "MODULE_5"  # TODO: puzzle still to define in the GDD
+    CHOICE = "CHOIX"
+    END_FREE = "FIN_LIBRE"
+    END_CLOSED = "FIN_FERMEE"
+    END_DEFEAT = "FIN_DEFAITE"
+    HOPPER = "HOPPER"
 
 
-MODULES = (Phase.MODULE_1, Phase.MODULE_2, Phase.MODULE_3, Phase.MODULE_4)
+MODULES = (Phase.MODULE_1, Phase.MODULE_2, Phase.MODULE_3, Phase.MODULE_4, Phase.MODULE_5)
+PLAYING = (Phase.HUB, *MODULES)
 ENDINGS = (Phase.END_FREE, Phase.END_CLOSED, Phase.END_DEFEAT)
 
 
@@ -151,14 +155,20 @@ class GameEngine:
     def start(self) -> None:
         self._require(Phase.HOME)
         self.timer.start()
-        self.phase = self.active_modules[0]
+        self.phase = Phase.HUB
+
+    def open_module(self) -> None:
+        """From the hub, enter the next module to repair (fixed order)."""
+        if self.check_time():
+            return
+        self._require(Phase.HUB)
+        self.phase = next(m for m in self.active_modules if m not in self.repaired)
 
     def repair_current_module(self) -> None:
         self._require(*MODULES)
         self.repaired.append(self.phase)
-        index = self.active_modules.index(self.phase)
-        if index + 1 < len(self.active_modules):
-            self.phase = self.active_modules[index + 1]
+        if len(self.repaired) < len(self.active_modules):
+            self.phase = Phase.HUB
         else:
             # Last module repaired: the forced update is stopped
             self.timer.stop()
@@ -166,7 +176,7 @@ class GameEngine:
 
     def check_time(self) -> bool:
         """Called every second: switches to defeat when the timer has expired."""
-        if self.phase in MODULES and self.timer.expired():
+        if self.phase in PLAYING and self.timer.expired():
             self.phase = Phase.END_DEFEAT
             return True
         return False

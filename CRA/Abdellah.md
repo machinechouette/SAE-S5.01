@@ -19,4 +19,6 @@ Semaine du 19/10/2026 au 25/10/2026 :
 
 Semaine du 26/10/2026 au 01/11/2026 :
 
- - Révisions pour les examens du DST.
+ - Intégration du backend avec le frontend : alignement du moteur de jeu sur les écrans de Tiago (phases ACCUEIL → HUB → modules → CHOIX, passage à 5 modules).
+ - WebSocket temps réel : l'état de la partie et le chrono sont envoyés à l'écran après chaque action et chaque seconde.
+ - Côté frontend : proxy Vite vers l'API, hook useGame pour se connecter au backend, bouton LANCER relié à l'API.

@@ -1,16 +1,20 @@
-import { useState } from "react";
-import type { Phase } from "../types/game";
+import Prompt from "../components/ui/Prompt/Prompt";
+import { useGame } from "../hooks/useGame";
 import Accueil from "./Accueil/Accueil";
 import Hub from "./Hub/Hub";
 
 export default function GameShell() {
-  const [phase, setPhase] = useState<Phase>("ACCUEIL");
+  const { state, lancer } = useGame();
 
-  switch (phase) {
+  if (!state) return <Prompt message="connexion au deck..." curseur />;
+
+  switch (state.phase) {
     case "ACCUEIL":
-      return <Accueil onLancer={() => setPhase("HUB")} />;
+      return <Accueil onLancer={lancer} />;
     case "HUB":
       return <Hub />;
-
+    default:
+      // TODO: screens still to build (modules, choix, fins, Hopper)
+      return <Prompt message={`${state.phase} : écran à venir`} curseur />;
   }
 }

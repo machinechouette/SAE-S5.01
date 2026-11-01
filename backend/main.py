@@ -4,25 +4,37 @@ Run: uvicorn main:app --reload, then open http://localhost:8000/docs
 
 TODO:
 - connect the MQTT client and the USB watcher at startup (see hardware.py)
-- WebSocket: push full_state() and live weight to the screen after every change
-- Pydantic models for the API contract agreed with the frontend
+- push the live weight and USB events on the WebSocket too
 - admin PIN on the /api/admin routes
 """
 
 import asyncio
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, WebSocket
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 
 from engine import GameEngine, InvalidTransition, NoAnswersLeft
 
 game = GameEngine()
+screens: set[WebSocket] = set()
+
+
+async def broadcast():
+    """Send the full game state to every connected screen."""
+    message = {"event": "state", "data": game.full_state()}
+    for ws in list(screens):
+        try:
+            await ws.send_json(message)
+        except Exception:
+            screens.discard(ws)
 
 
 async def watch_timer():
+    # Every second: check for defeat and refresh the timer on the screens
     while True:
         game.check_time()
+        await broadcast()
         await asyncio.sleep(1)
 
 
@@ -49,17 +61,18 @@ class Choice(BaseModel):
     accept: bool
 
 
-def run(action):
+async def run(action):
     try:
         action()
     except InvalidTransition as e:
         raise HTTPException(409, str(e))
+    await broadcast()
     return game.full_state()
 
 
 @app.post("/api/game/start")
-def start():
-    return run(game.start)
+async def start():
+    return await run(game.start)
 
 
 @app.get("/api/game/state")
@@ -67,45 +80,56 @@ def state():
     return game.full_state()
 
 
+@app.post("/api/game/module")
+async def open_module():
+    return await run(game.open_module)
+
+
 @app.post("/api/game/weight")
-def weight(body: Weight):
+async def weight(body: Weight):
     # Software-only mode and testing without the ESP32; MQTT will call game.on_weight too
-    return run(lambda: game.on_weight(body.grams, body.stable))
+    return await run(lambda: game.on_weight(body.grams, body.stable))
 
 
 @app.post("/api/game/password")
-def password(body: Password):
-    return run(lambda: game.on_password(body.value))
+async def password(body: Password):
+    return await run(lambda: game.on_password(body.value))
 
 
 @app.post("/api/game/hint")
-def hint():
+async def hint():
     try:
-        return game.ask_hint()
+        result = game.ask_hint()
     except InvalidTransition as e:
         raise HTTPException(409, str(e))
     except NoAnswersLeft:
         raise HTTPException(403, "no answers left")
+    await broadcast()
+    return result
 
 
 @app.post("/api/game/choice")
-def choice(body: Choice):
-    return run(lambda: game.choose(body.accept))
+async def choice(body: Choice):
+    return await run(lambda: game.choose(body.accept))
 
 
 @app.post("/api/game/hopper")
-def hopper():
-    return run(game.go_to_hopper)
+async def hopper():
+    return await run(game.go_to_hopper)
 
 
 @app.post("/api/admin/reset")
-def reset():
-    return run(game.reset)
+async def reset():
+    return await run(game.reset)
 
 
 @app.websocket("/ws")
 async def live(ws: WebSocket):
-    # TODO: keep the list of connected screens and broadcast state / weight / usb events
     await ws.accept()
+    screens.add(ws)
     await ws.send_json({"event": "state", "data": game.full_state()})
-    await ws.close()
+    try:
+        while True:
+            await ws.receive_text()  # screens only listen, this just detects the disconnect
+    except WebSocketDisconnect:
+        screens.discard(ws)
