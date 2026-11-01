@@ -16,3 +16,7 @@ Semaine du 19/10/2026 au 25/10/2026 :
  - Discussion en équipe sur le matériel nécessaire au projet.
  - Remise en question et révision de l'architecture de notre programme.
  - Définition des prochaines étapes et des objectifs à atteindre pendant les vacances.
+
+Semaine du 26/10/2026 au 01/11/2026 :
+
+ - Révisions pour les examens du DST.
