@@ -16,7 +16,7 @@ Semaine du 26/10/2026 au 01/11/2026 :
   - screens/ : un dossier par écran (accueil, hub, modules, choix, fins…)
   - components/ : composants réutilisables (ui/ pour les briques visuelles, game/ pour ceux liés au jeu)
   - hooks/, services/, types/, styles/
-  - Styles globaux : variables de couleurs (un rôle par couleur : Lucy, Arasaka, actions), police JetBrains Mono embarquée pour un fonctionnement hors ligne.
+  - Styles globaux : variables de couleurs, police JetBrains Mono embarquée pour un fonctionnement hors ligne.
   - Game.tsx : affichage de l'écran selon la phase de la partie (gérée localement pour le moment).
   - Premiers composants : Prompt.tsx (ligne de terminal + curseur) et Bouton.tsx, avec CSS Modules.
   - Page d'accueil : texte qui s'écrit lettre par lettre, curseur clignotant, bouton « LANCER ».
