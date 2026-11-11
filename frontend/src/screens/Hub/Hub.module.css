@@ -1,0 +1,42 @@
+.hub {
+  height: 100%;
+  padding: 34px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.panneaux {
+  flex: 1;
+  display: flex;
+  gap: 22px;
+}
+
+.modules { width: 470px; }
+.message { flex: 1; }
+
+.ligne {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  font-size: 22px;
+  line-height: 1.8;
+}
+
+.repaired .etat { color: var(--vert); }
+.active .etat   { color: var(--jaune); }
+.locked .etat   { color: var(--magenta); }
+
+.message p { margin: 0 0 12px; }
+.secondaire { color: var(--texte-secondaire); font-size: 18px; }
+
+.barre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 16px;
+  background: var(--vert);
+  color: var(--fond);
+  font-size: 18px;
+  font-weight: 700;
+}
