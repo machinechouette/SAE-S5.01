@@ -22,3 +22,10 @@ Semaine du 26/10/2026 au 01/11/2026 :
  - Intégration du backend avec le frontend : alignement du moteur de jeu sur les écrans de Tiago (phases ACCUEIL → HUB → modules → CHOIX, passage à 5 modules).
  - WebSocket temps réel : l'état de la partie et le chrono sont envoyés à l'écran après chaque action et chaque seconde.
  - Côté frontend : proxy Vite vers l'API, hook useGame pour se connecter au backend, bouton LANCER relié à l'API.
+
+Semaine du 09/11/2026 au 15/11/2026 :
+
+ - Création d'un simulateur de l'Arduino (balance, bouton, joystick, LEDs) pour tester sans le matériel.
+ - Envoi du poids en direct au frontend par WebSocket pour l'écran du module 2.
+ - Retour vers les LEDs (succès, défaite, jauge) depuis le moteur de jeu via MQTT.
+ - Démarrage du backend même sans Mosquitto, pour pouvoir travailler sans le broker.
