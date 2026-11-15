@@ -16,9 +16,16 @@ from pydantic import BaseModel
 
 from engine import GameEngine, InvalidTransition, NoAnswersLeft
 
+from hardware import MqttClient
+
 game = GameEngine()
 screens: set[WebSocket] = set()
 
+def on_mqtt_weight(grams: float, stable: bool):
+    # On insère l'action dans la boucle asynchrone pour mettre à jour le jeu et déclencher le broadcast WebSocket
+    asyncio.create_task(run(lambda: game.on_weight(grams, stable)))
+
+mqtt_client = MqttClient(on_mqtt_weight)
 
 async def broadcast():
     """Send the full game state to every connected screen."""
@@ -41,6 +48,7 @@ async def watch_timer():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     task = asyncio.create_task(watch_timer())
+    mqtt_client.connect()
     yield
     task.cancel()
 
