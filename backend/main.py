@@ -3,8 +3,9 @@
 Run: uvicorn main:app --reload, then open http://localhost:8000/docs
 
 TODO:
-- connect the MQTT client and the USB watcher at startup (see hardware.py)
-- push the live weight and USB events on the WebSocket too
+- connect the USB watcher at startup (see hardware.py)
+- listen to the button and joystick topics (format to agree with Reda, see simulator.py)
+- push the USB events on the WebSocket too
 - admin PIN on the /api/admin routes
 """
 
@@ -14,7 +15,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 
-from engine import GameEngine, InvalidTransition, NoAnswersLeft
+from engine import GameEngine, InvalidTransition, NoAnswersLeft, Phase
 
 from hardware import MqttClient
 
@@ -23,13 +24,12 @@ screens: set[WebSocket] = set()
 
 def on_mqtt_weight(grams: float, stable: bool):
     # On insère l'action dans la boucle asynchrone pour mettre à jour le jeu et déclencher le broadcast WebSocket
-    asyncio.create_task(run(lambda: game.on_weight(grams, stable)))
+    asyncio.create_task(handle_weight(grams, stable))
 
 mqtt_client = MqttClient(on_mqtt_weight)
 
-async def broadcast():
-    """Send the full game state to every connected screen."""
-    message = {"event": "state", "data": game.full_state()}
+
+async def send_all(message: dict):
     for ws in list(screens):
         try:
             await ws.send_json(message)
@@ -37,10 +37,27 @@ async def broadcast():
             screens.discard(ws)
 
 
+async def broadcast():
+    """Send the full game state to every connected screen."""
+    await send_all({"event": "state", "data": game.full_state()})
+
+
+def notify_hardware(phase_before: Phase, repaired_before: int):
+    """Drive the LEDs after a change: green on repair, red on defeat, gauge = repaired modules."""
+    repaired = len(game.repaired)
+    if repaired > repaired_before:
+        mqtt_client.publish_feedback("succes")
+    if repaired != repaired_before:
+        mqtt_client.publish_feedback("jauge", repaired)
+    if game.phase == Phase.END_DEFEAT and phase_before != Phase.END_DEFEAT:
+        mqtt_client.publish_feedback("defaite")
+
+
 async def watch_timer():
     # Every second: check for defeat and refresh the timer on the screens
     while True:
-        game.check_time()
+        if game.check_time():
+            mqtt_client.publish_feedback("defaite")
         await broadcast()
         await asyncio.sleep(1)
 
@@ -51,6 +68,7 @@ async def lifespan(app: FastAPI):
     mqtt_client.connect()
     yield
     task.cancel()
+    mqtt_client.disconnect()
 
 
 app = FastAPI(title="Cyberdeck - Backend", lifespan=lifespan)
@@ -70,12 +88,20 @@ class Choice(BaseModel):
 
 
 async def run(action):
+    phase_before, repaired_before = game.phase, len(game.repaired)
     try:
         action()
     except InvalidTransition as e:
         raise HTTPException(409, str(e))
+    notify_hardware(phase_before, repaired_before)
     await broadcast()
     return game.full_state()
+
+
+async def handle_weight(grams: float, stable: bool):
+    # Live reading for the module 2 screen (the target is not sent: the player has to find it)
+    await send_all({"event": "weight", "data": {"grams": grams, "stable": stable}})
+    return await run(lambda: game.on_weight(grams, stable))
 
 
 @app.post("/api/game/start")
@@ -95,8 +121,8 @@ async def open_module():
 
 @app.post("/api/game/weight")
 async def weight(body: Weight):
-    # Software-only mode and testing without the ESP32; MQTT will call game.on_weight too
-    return await run(lambda: game.on_weight(body.grams, body.stable))
+    # Software-only mode and testing without the Arduino; MQTT goes through handle_weight too
+    return await handle_weight(body.grams, body.stable)
 
 
 @app.post("/api/game/password")

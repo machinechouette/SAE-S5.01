@@ -50,15 +50,22 @@ class MqttClient:
         # On capture la boucle asyncio principale au moment du démarrage
         self.loop = asyncio.get_running_loop()
         
-        self.client.connect(config.MQTT_HOST, config.MQTT_PORT, 60)
-        
+        # connect_async: the backend starts even if Mosquitto is not running yet, paho retries in the background
+        self.client.connect_async(config.MQTT_HOST, config.MQTT_PORT, 60)
+
         # Utilisation de loop_start() (arrière-plan) au lieu de loop_forever() pour ne pas bloquer le fonctionnement de FastAPI.
         self.client.loop_start()
 
-    def publish_feedback(self, kind: str) -> None:
+    def disconnect(self) -> None:
+        self.client.loop_stop()
+        self.client.disconnect()
+
+    def publish_feedback(self, kind: str, value: int | None = None) -> None:
         # Publie l'ordre sur le canal cyberdeck/feedback (pour piloter les LEDs)
-        payload = json.dumps({"action": kind})
-        self.client.publish(config.TOPIC_FEEDBACK, payload)
+        message = {"action": kind}
+        if value is not None:
+            message["valeur"] = value
+        self.client.publish(config.TOPIC_FEEDBACK, json.dumps(message))
 
 
 class UsbWatcher:

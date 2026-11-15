@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { GameState, Indice } from "../types/game";
+import type { GameState, Indice, Poids } from "../types/game";
 
 // The backend is the source of truth: it pushes the state on /ws after every change
 // and every second (timer). Actions are sent with the REST API.
@@ -16,6 +16,7 @@ async function post<T>(path: string, body?: unknown): Promise<T> {
 
 export function useGame() {
     const [state, setState] = useState<GameState | null>(null);
+    const [poids, setPoids] = useState<Poids | null>(null);
 
     useEffect(() => {
         let ws: WebSocket;
@@ -28,6 +29,7 @@ export function useGame() {
             ws.onmessage = (e) => {
                 const msg = JSON.parse(e.data);
                 if (msg.event === "state") setState(msg.data);
+                if (msg.event === "weight") setPoids(msg.data);
             };
             ws.onclose = () => {
                 setState(null);
@@ -45,6 +47,7 @@ export function useGame() {
 
     return {
         state,
+        poids, // live scale reading, for the module 2 screen
         lancer: () => post<GameState>("game/start"),
         ouvrirModule: () => post<GameState>("game/module"),
         envoyerPoids: (grams: number, stable = true) => post<GameState>("game/weight", { grams, stable }),

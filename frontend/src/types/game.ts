@@ -23,6 +23,12 @@ export type GameState = {
   answers_left: number;
 };
 
+// Live scale reading (WebSocket event "weight")
+export type Poids = {
+  grams: number;
+  stable: boolean;
+};
+
 export type Indice = {
   level: 1 | 2 | 3;
   text: string;
