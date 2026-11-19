@@ -8,7 +8,7 @@ MAX_ANSWERS = 2
 PASSWORD = "HOPPER"
 
 # Vertical slice: only module 2 is playable for now
-ACTIVE_MODULES = ("MODULE_2",)
+ACTIVE_MODULES = ("MODULE_1", "MODULE_2",)
 
 # Module 2 - provisional values, to adjust after weighing the beads
 TARGET_WEIGHT_G = 12.0
