@@ -1,4 +1,3 @@
-// Same names as the Phase enum in backend/engine.py
 export type Phase =
   | "ACCUEIL"
   | "HUB"
@@ -15,7 +14,6 @@ export type Phase =
 
 export type EtatModule = "locked" | "active" | "repaired";
 
-// Sent by the backend (GameEngine.full_state) on the WebSocket and the REST API
 export type GameState = {
   phase: Phase;
   remaining_s: number;
@@ -23,7 +21,6 @@ export type GameState = {
   answers_left: number;
 };
 
-// Live scale reading (WebSocket event "weight")
 export type Poids = {
   grams: number;
   stable: boolean;
@@ -33,4 +30,14 @@ export type Indice = {
   level: 1 | 2 | 3;
   text: string;
   answers_left: number;
+};
+
+export type FichierUsb = {
+  nom: string;
+  contenu: string;
+};
+
+export type CleUsb = {
+  label: string;
+  fichiers: FichierUsb[];
 };
