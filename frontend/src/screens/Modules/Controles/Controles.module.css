@@ -1,0 +1,56 @@
+.module {
+  height: 100%;
+  padding: 34px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.panneaux { flex: 1; display: flex; gap: 22px; }
+.sequence { flex: 1; display: flex; flex-direction: column; }
+.etat     { width: 330px; }
+
+.etat p {
+  margin: 0 0 14px;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.valeur     { color: var(--vert); }
+.ok         { color: var(--vert); }
+.absente    { color: var(--magenta); }
+.etat p.secondaire { display: block; color: var(--texte-secondaire); font-size: 16px; }
+
+.croix {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 6px;
+  place-content: center;
+}
+
+.touche {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--couleur-touche);
+  color: var(--fond);
+  font-size: 40px;
+  font-weight: 700;
+  opacity: 0.25;
+  transition: opacity 0.08s, box-shadow 0.08s;
+}
+
+.allumee {
+  opacity: 1;
+  box-shadow: 0 0 28px var(--couleur-touche);
+}
+
+.Y { grid-area: 1 / 2; --couleur-touche: var(--touche-y); }
+.X { grid-area: 2 / 1; --couleur-touche: var(--touche-x); }
+.B { grid-area: 2 / 3; --couleur-touche: var(--touche-b); }
+.A { grid-area: 3 / 2; --couleur-touche: var(--touche-a); }

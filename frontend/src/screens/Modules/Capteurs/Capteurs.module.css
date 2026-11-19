@@ -1,0 +1,26 @@
+.module {
+  height: 100%;
+  padding: 34px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.panneaux { flex: 1; display: flex; gap: 22px; }
+.balance  { flex: 1; }
+.journal  { width: 380px; }
+.journal p { margin: 0 0 12px; font-size: 20px; }
+
+.poids {
+  margin: 16px 0 8px;
+  font-size: var(--taille-geante);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--vert);
+  text-shadow: 0 0 14px var(--vert);
+}
+
+.stable     { color: var(--vert); }
+.instable   { color: var(--jaune); }
+.secondaire { color: var(--texte-secondaire); font-size: 18px; }
+.erreur     { color: var(--magenta); }

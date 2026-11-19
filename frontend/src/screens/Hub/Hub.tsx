@@ -1,4 +1,5 @@
 import Button from "../../components/ui/Button/Button";
+import BarreStatut from "../../components/game/BarreStatut/BarreStatut";
 import Panneau from "../../components/ui/Panneau/Panneau";
 import type { EtatModule, GameState } from "../../types/game";
 import styles from "./Hub.module.css";
@@ -16,13 +17,6 @@ const LIBELLES: Record<EtatModule, string> = {
   active: "en cours",
   locked: "en panne",
 };
-
-function formatTemps(secondes: number) {
-  const s = Math.ceil(secondes);
-  const mm = String(Math.floor(s / 60)).padStart(2, "0");
-  const ss = String(s % 60).padStart(2, "0");
-  return `${mm}:${ss}`;
-}
 
 type Props = {
   state: GameState;
@@ -58,10 +52,7 @@ export default function Hub({ state, onOuvrirModule }: Props) {
         <Button onClick={onOuvrirModule}>OUVRIR LE MODULE</Button>
       </div>
 
-      <div className={styles.barre}>
-        <span>réponses : {state.answers_left} / 2</span>
-        <span>▲ MAJ ARASAKA {formatTemps(state.remaining_s)}</span>
-      </div>
+      <BarreStatut state={state} />
     </div>
   );
 }
