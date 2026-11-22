@@ -36,3 +36,10 @@ Semaine du 09/11/2026 au 15/11/2026 :
 - Création d'un composant réutilisable Panneau (cadre avec titre sur la bordure), qui servira aux autres écrans.
 
 Semaine du 16/11/2026 au 22/11/2026 :
+
+- Module 2 (Capteurs) : écran de la balance relié au backend, avec le poids affiché en direct et le bouton d'indice. Testé de bout en bout avec le simulateur Arduino.
+- Module 1 (Contrôles) : jeu de mémoire sur la manette Xbox 360 (API Gamepad), avec une séquence de couleurs qui s'allonge et un son par touche.
+- Module 3 (Données) : explorateur de clé USB et lecture des fichiers, avec un champ pour saisir le message déchiffré.
+- Création de composants partagés (barre de statut, sons) pour les écrans de jeu.
+
+Semaine du 22/11/2026 au 29/11/2026 :
