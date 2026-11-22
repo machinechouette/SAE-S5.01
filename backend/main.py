@@ -125,6 +125,12 @@ async def weight(body: Weight):
     return await handle_weight(body.grams, body.stable)
 
 
+@app.post("/api/game/controls")
+async def controls():
+    # Module 1: sent by the frontend once the whole color sequence is reproduced on the controller
+    return await run(game.on_controls_success)
+
+
 @app.post("/api/game/password")
 async def password(body: Password):
     return await run(lambda: game.on_password(body.value))

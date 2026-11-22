@@ -50,6 +50,7 @@ export function useGame() {
         usb,
         lancer: () => post<GameState>("game/start"),
         ouvrirModule: () => post<GameState>("game/module"),
+        reussirControles: () => post<GameState>("game/controls"),
         envoyerPoids: (grams: number, stable = true) => post<GameState>("game/weight", { grams, stable }),
         envoyerMotDePasse: (value: string) => post<GameState>("game/password", { value }),
         demanderIndice: () => post<Indice>("game/hint"),

@@ -190,6 +190,13 @@ class GameEngine:
             return True
         return False
 
+    def on_controls_success(self) -> None:
+        """Module 1: the frontend reads the Xbox controller (Gamepad API) and reports the full sequence."""
+        if self.check_time():
+            return
+        self._require(Phase.MODULE_1)
+        self.repair_current_module()
+
     def on_password(self, value: str) -> bool:
         self._require(Phase.MODULE_4)
         if check_password(value):

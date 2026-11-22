@@ -7,8 +7,8 @@ TIMER_SECONDS = 20 * 60
 MAX_ANSWERS = 2
 PASSWORD = "HOPPER"
 
-# Vertical slice: only module 2 is playable for now
-ACTIVE_MODULES = ("MODULE_1", "MODULE_2", "MODULE_3", "MODULE_4", "MODULE_5")
+# MVP: only modules 1 and 2 can be solved end to end for now (module 3 needs the USB watcher)
+ACTIVE_MODULES = ("MODULE_1", "MODULE_2")
 
 # Module 2 - provisional values, to adjust after weighing the beads
 TARGET_WEIGHT_G = 12.0
