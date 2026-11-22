@@ -29,3 +29,15 @@ Semaine du 09/11/2026 au 15/11/2026 :
  - Envoi du poids en direct au frontend par WebSocket pour l'écran du module 2.
  - Retour vers les LEDs (succès, défaite, jauge) depuis le moteur de jeu via MQTT.
  - Démarrage du backend même sans Mosquitto, pour pouvoir travailler sans le broker.
+
+Semaine du 16/11/2026 au 22/11/2026 :
+
+ - Installation de Mosquitto et test de toute la chaîne MQTT avec le simulateur : poids envoyé par la « carte » → backend → écran en direct, puis retour vers les LEDs (succès, jauge). Deux problèmes relevés à corriger : le backend ne se reconnecte pas si Mosquitto démarre après lui, et le poids n'a pas le même nom en MQTT (poids) et dans l'API REST (grams).
+ - Création de lanceurs en un double-clic pour toute l'équipe : start.bat (Windows) et start.command (macOS). Ils vérifient Python et Node, installent les dépendances si besoin, démarrent Mosquitto avant le backend, puis ouvrent le backend, le frontend et le simulateur dans des fenêtres séparées et le jeu dans le navigateur.
+ - Tests d'intégration des écrans de Tiago dans Chrome, partie complète de l'accueil jusqu'au choix éthique.
+ - Backend du module 1 (Contrôles) : nouvelle route qui valide la séquence de la manette Xbox lue par l'écran (API Gamepad) et répare le module. Cela a débloqué la partie, qui restait bloquée sur le module 1 depuis l'activation des 5 modules.
+ - Backend du module 3 (Données) : détection des clés USB branchées (Raspberry Pi, macOS et Windows), identifiées par leur nom de volume, avec lecture des fichiers .txt seulement et des limites de taille. La clé est envoyée en direct à l'écran par le WebSocket, et le message déchiffré est validé sans tenir compte des majuscules, espaces, ponctuation et accents.
+ - Dossier fake_usb pour simuler des clés USB sans matériel.
+ - Modules 1, 2 et 3 jouables de bout en bout (frontend et backend), testés dans le navigateur.
+ - Analyse de l'avancement par rapport au MVP du GDD et répartition des tâches de la semaine prochaine pour chaque membre (écrans de fin, base de données SQLite, programme de la carte et LEDs, Raspberry Pi en mode kiosque).
+ - Incohérences relevées dans le GDD à trancher en équipe : le module 4 attend un mot de passe dans le code mais un code à 6 chiffres dans le GDD, et le module 5 n'est pas défini.
