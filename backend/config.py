@@ -7,13 +7,21 @@ TIMER_SECONDS = 20 * 60
 MAX_ANSWERS = 2
 PASSWORD = "HOPPER"
 
-# MVP: only modules 1 and 2 can be solved end to end for now (module 3 needs the USB watcher)
-ACTIVE_MODULES = ("MODULE_1", "MODULE_2")
+# Modules 1 to 3 can be solved end to end; 4 and 5 still have no screen
+ACTIVE_MODULES = ("MODULE_1", "MODULE_2", "MODULE_3")
 
 # Module 2 - provisional values, to adjust after weighing the beads
 TARGET_WEIGHT_G = 12.0
 WEIGHT_TOLERANCE_G = 1.0
 STABLE_SECONDS = 2.0
+
+# Module 3 - provisional answer, to replace once the coded message is written with the team
+DECODED_MESSAGE = "SOUS LE CLAVIER"
+USB_SCAN_SECONDS = 1.0
+USB_MAX_FILES = 20
+USB_MAX_FILE_BYTES = 64 * 1024
+# Folder whose subfolders act as plugged USB keys (testing without a real key); ignored if missing
+FAKE_USB_DIR = "fake_usb"
 
 # TODO: provisional texts, to be replaced by the ones stored in the database
 HINT_TEXTS = {

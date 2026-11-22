@@ -8,7 +8,7 @@ import Donnees from "./Modules/Donnees/Donnees";
 import { CLE_EXEMPLE } from "./Modules/Donnees/exemple";
 
 export default function GameShell() {
-  const { state, poids, usb, lancer, ouvrirModule, reussirControles, demanderIndice } = useGame();
+  const { state, poids, usb, lancer, ouvrirModule, reussirControles, envoyerMessage, demanderIndice } = useGame();
 
   if (!state) return <Prompt message="connexion au deck..." curseur />;
 
@@ -29,7 +29,7 @@ export default function GameShell() {
     case "MODULE_2":
       return <Capteurs state={state} poids={poids} onIndice={demanderIndice} />;
     case "MODULE_3":
-      return <Donnees state={state} usb={usb} />;
+      return <Donnees state={state} usb={usb} onReponse={envoyerMessage} />;
     default:
       return <Prompt message={`${state.phase} : écran à venir`} curseur />;
   }

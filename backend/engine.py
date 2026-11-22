@@ -4,12 +4,12 @@ Independent from FastAPI and MQTT so it can be unit tested: the API, the MQTT cl
 and the USB watcher call these methods, then broadcast full_state().
 
 TODO:
-- modules 1 (Xbox controller sequence) and 3 (USB keys + coded message)
 - message fragments and password clues revealed when a module is repaired
 - save the game in the database (current_game) to survive a backend restart
 """
 
 import time
+import unicodedata
 from enum import Enum
 from typing import Callable
 
@@ -123,6 +123,14 @@ class Hints:
         }
 
 
+def check_message(value: str, expected: str = config.DECODED_MESSAGE) -> bool:
+    """Module 3: ignores case, spaces, punctuation and accents ("sous l'écran" == "SOUSLECRAN")."""
+    def normalize(text: str) -> str:
+        text = unicodedata.normalize("NFKD", text)
+        return "".join(c for c in text if c.isalnum()).upper()
+    return normalize(value) == normalize(expected)
+
+
 def check_password(value: str, password: str = config.PASSWORD) -> bool:
     """Module 4: ignores case and spaces."""
     return "".join(value.split()).upper() == password.upper()
@@ -196,6 +204,16 @@ class GameEngine:
             return
         self._require(Phase.MODULE_1)
         self.repair_current_module()
+
+    def on_message(self, value: str) -> bool:
+        """Module 3: the decoded message typed by the player, read from the file on the USB key."""
+        if self.check_time():
+            return False
+        self._require(Phase.MODULE_3)
+        if check_message(value):
+            self.repair_current_module()
+            return True
+        return False
 
     def on_password(self, value: str) -> bool:
         self._require(Phase.MODULE_4)

@@ -3,9 +3,7 @@
 Run: uvicorn main:app --reload, then open http://localhost:8000/docs
 
 TODO:
-- connect the USB watcher at startup (see hardware.py)
 - listen to the button and joystick topics (format to agree with Reda, see simulator.py)
-- push the USB events on the WebSocket too
 - admin PIN on the /api/admin routes
 """
 
@@ -17,10 +15,13 @@ from pydantic import BaseModel
 
 from engine import GameEngine, InvalidTransition, NoAnswersLeft, Phase
 
-from hardware import MqttClient
+import config
+from hardware import MqttClient, UsbWatcher
 
 game = GameEngine()
 screens: set[WebSocket] = set()
+usb_watcher = UsbWatcher()
+usb_key: dict | None = None  # key shown on the module 3 screen: the last one plugged in
 
 def on_mqtt_weight(grams: float, stable: bool):
     # On insère l'action dans la boucle asynchrone pour mettre à jour le jeu et déclencher le broadcast WebSocket
@@ -62,12 +63,37 @@ async def watch_timer():
         await asyncio.sleep(1)
 
 
+async def watch_usb():
+    # Every second: look for plugged / unplugged keys and push the current one to the screens
+    global usb_key
+    known: dict[str, dict] = {}
+    while True:
+        try:
+            keys = {k["label"]: k for k in await asyncio.to_thread(usb_watcher.scan)}
+        except Exception as e:
+            print(f"USB scan failed: {e}")
+            keys = known
+        new = [label for label in keys if label not in known]
+        if new:
+            current = keys[new[-1]]
+        elif usb_key and usb_key["label"] in keys:
+            current = keys[usb_key["label"]]  # same key, files may have changed
+        else:
+            current = next(iter(keys.values()), None)
+        known = keys
+        if current != usb_key:
+            usb_key = current
+            await send_all({"event": "usb", "data": usb_key})
+        await asyncio.sleep(config.USB_SCAN_SECONDS)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    task = asyncio.create_task(watch_timer())
+    tasks = [asyncio.create_task(watch_timer()), asyncio.create_task(watch_usb())]
     mqtt_client.connect()
     yield
-    task.cancel()
+    for task in tasks:
+        task.cancel()
     mqtt_client.disconnect()
 
 
@@ -77,6 +103,10 @@ app = FastAPI(title="Cyberdeck - Backend", lifespan=lifespan)
 class Weight(BaseModel):
     grams: float
     stable: bool = True
+
+
+class Message(BaseModel):
+    value: str
 
 
 class Password(BaseModel):
@@ -131,6 +161,12 @@ async def controls():
     return await run(game.on_controls_success)
 
 
+@app.post("/api/game/message")
+async def message(body: Message):
+    # Module 3: the decoded message typed by the player
+    return await run(lambda: game.on_message(body.value))
+
+
 @app.post("/api/game/password")
 async def password(body: Password):
     return await run(lambda: game.on_password(body.value))
@@ -168,6 +204,7 @@ async def live(ws: WebSocket):
     await ws.accept()
     screens.add(ws)
     await ws.send_json({"event": "state", "data": game.full_state()})
+    await ws.send_json({"event": "usb", "data": usb_key})
     try:
         while True:
             await ws.receive_text()  # screens only listen, this just detects the disconnect

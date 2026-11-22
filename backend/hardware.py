@@ -6,12 +6,12 @@ TODO (MQTT, with the distributed architecture owner):
 - publish on config.TOPIC_FEEDBACK to drive the LEDs and the buzzer
 - paho runs in its own thread: hand events back to the asyncio loop
 
-TODO (USB, module 3):
-- detect key insertion / removal (pyudev), read-only, .txt files only
-- identify the right key by its volume label, never by the port
 """
-import json
 import asyncio
+import json
+import os
+import sys
+
 import paho.mqtt.client as mqtt
 import config
 
@@ -69,8 +69,73 @@ class MqttClient:
 
 
 class UsbWatcher:
-    def start(self) -> None:
-        raise NotImplementedError
+    """Module 3: finds the plugged USB keys and reads their .txt files (read-only).
 
-    def files(self, label: str) -> list[str]:
-        raise NotImplementedError
+    Polled every second by main.py instead of pyudev, so it works the same on the
+    Raspberry Pi (/media), macOS (/Volumes) and Windows (removable drive letters).
+    Keys are identified by their volume label, never by the port.
+    """
+
+    def scan(self) -> list[dict]:
+        """Plugged keys, as [{"label": ..., "fichiers": [{"nom": ..., "contenu": ...}]}]."""
+        keys = [self._read(label, root) for label, root in self._mount_points()]
+        return sorted(keys, key=lambda k: k["label"])
+
+    def _mount_points(self) -> list[tuple[str, str]]:
+        found = []
+        if os.path.isdir(config.FAKE_USB_DIR):
+            for name in os.listdir(config.FAKE_USB_DIR):
+                path = os.path.join(config.FAKE_USB_DIR, name)
+                if os.path.isdir(path):
+                    found.append((name, path))
+        if sys.platform == "win32":
+            found += self._windows_drives()
+        elif sys.platform == "darwin":
+            for name in os.listdir("/Volumes"):
+                path = os.path.join("/Volumes", name)
+                if os.path.realpath(path) != "/":  # skip the system disk
+                    found.append((name, path))
+        else:
+            # Raspberry Pi OS mounts keys on /media/<user>/<label>
+            with open("/proc/mounts", encoding="utf-8") as mounts:
+                for line in mounts:
+                    path = line.split()[1].replace("\040", " ")
+                    if path.startswith(("/media/", "/run/media/")):
+                        found.append((os.path.basename(path), path))
+        return found
+
+    def _windows_drives(self) -> list[tuple[str, str]]:
+        import ctypes
+
+        kernel32 = ctypes.windll.kernel32
+        kernel32.SetErrorMode(1)  # no "insert a disk" popup on empty card readers
+        drives = []
+        bitmask = kernel32.GetLogicalDrives()
+        for i in range(26):
+            root = f"{chr(65 + i)}:\\"
+            if not bitmask & (1 << i) or kernel32.GetDriveTypeW(root) != 2:  # 2 = removable
+                continue
+            label = ctypes.create_unicode_buffer(261)
+            if kernel32.GetVolumeInformationW(root, label, 261, None, None, None, None, 0):
+                drives.append((label.value or root[:2], root))
+        return drives
+
+    def _read(self, label: str, root: str) -> dict:
+        files = []
+        try:
+            names = sorted(os.listdir(root))
+        except OSError:
+            names = []
+        for name in names:
+            path = os.path.join(root, name)
+            if not name.lower().endswith(".txt") or name.startswith(".") or not os.path.isfile(path):
+                continue
+            try:
+                with open(path, "rb") as f:
+                    content = f.read(config.USB_MAX_FILE_BYTES)
+            except OSError:
+                continue
+            files.append({"nom": name, "contenu": content.decode("utf-8", errors="replace")})
+            if len(files) >= config.USB_MAX_FILES:
+                break
+        return {"label": label, "fichiers": files}

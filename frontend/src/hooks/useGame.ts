@@ -52,6 +52,7 @@ export function useGame() {
         ouvrirModule: () => post<GameState>("game/module"),
         reussirControles: () => post<GameState>("game/controls"),
         envoyerPoids: (grams: number, stable = true) => post<GameState>("game/weight", { grams, stable }),
+        envoyerMessage: (value: string) => post<GameState>("game/message", { value }),
         envoyerMotDePasse: (value: string) => post<GameState>("game/password", { value }),
         demanderIndice: () => post<Indice>("game/hint"),
         choisir: (accept: boolean) => post<GameState>("game/choice", { accept }),
