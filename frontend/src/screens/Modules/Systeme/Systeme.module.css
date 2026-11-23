@@ -1,0 +1,62 @@
+.module {
+  height: 100%;
+  padding: 34px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.panneaux { flex: 1; display: flex; gap: 22px; min-height: 0; }
+.systeme  { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.journal  { width: 340px; }
+.journal p { margin: 0 0 12px; font-size: 20px; line-height: 1.5; }
+
+.consigne {
+  margin: 0;
+  font-size: 20px;
+  color: var(--texte);
+}
+
+.saisie {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.label {
+  color: var(--vert);
+  font-size: 32px;
+}
+
+.champ {
+  flex: 1;
+  min-height: 64px;
+  padding: 0 16px;
+  font-family: var(--police);
+  font-size: 32px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--vert);
+  background: transparent;
+  border: 1px solid var(--vert);
+  caret-color: var(--vert);
+}
+
+.champ:focus {
+  outline: none;
+  box-shadow: 0 0 12px var(--vert);
+}
+
+.champErreur {
+  border-color: var(--magenta);
+  color: var(--magenta);
+}
+
+.erreur     { margin: 0; color: var(--magenta); font-size: 20px; }
+.secondaire { margin: 0; color: var(--texte-secondaire); font-size: 18px; }
+
+.actions {
+  margin-top: auto;
+  display: flex;
+  gap: 20px;
+}

@@ -1,0 +1,59 @@
+.ecran {
+  height: 100%;
+  padding: 34px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ligne {
+  margin: 0;
+  font-size: var(--taille-normale);
+  line-height: 1.6;
+  color: var(--couleur-fin);
+  text-shadow: 0 0 8px var(--couleur-fin);
+}
+
+.curseur {
+  display: inline-block;
+  width: 14px;
+  height: 26px;
+  margin-left: 4px;
+  background: var(--couleur-fin);
+  vertical-align: middle;
+}
+
+.panneau {
+  flex: 1;
+}
+
+.panneau p,
+.panneau li {
+  margin: 0 0 10px;
+  font-size: 22px;
+  line-height: 1.5;
+}
+
+.liste {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.croix {
+  color: var(--magenta);
+}
+
+.valeur {
+  color: var(--vert);
+}
+
+.manifeste {
+  font-size: 30px !important;
+  color: var(--cyan);
+}
+
+.secondaire {
+  color: var(--texte-secondaire);
+  font-size: 18px !important;
+}

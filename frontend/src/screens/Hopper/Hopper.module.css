@@ -1,0 +1,22 @@
+.ecran {
+  height: 100%;
+  padding: 34px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.panneaux { flex: 1; display: flex; gap: 22px; min-height: 0; }
+.hopper   { flex: 3; }
+.deck     { flex: 2; }
+
+.panneaux p {
+  margin: 0 0 10px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.nom {
+  font-size: 22px !important;
+  color: var(--cyan);
+}

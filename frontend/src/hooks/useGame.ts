@@ -57,5 +57,6 @@ export function useGame() {
         demanderIndice: () => post<Indice>("game/hint"),
         choisir: (accept: boolean) => post<GameState>("game/choice", { accept }),
         allerHopper: () => post<GameState>("game/hopper"),
+        rejouer: () => post<GameState>("admin/reset"),
     };
 }
