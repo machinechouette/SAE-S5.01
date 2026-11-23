@@ -5,3 +5,4 @@ __pycache__/
 *.sqlite3
 .env
 backend/fake_usb/
+.DS_Store
