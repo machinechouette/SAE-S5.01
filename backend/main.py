@@ -6,6 +6,8 @@ TODO:
 - listen to the button and joystick topics (format to agree with Reda, see simulator.py)
 - admin PIN on the /api/admin routes
 """
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
 
 import asyncio
 from contextlib import asynccontextmanager
@@ -210,3 +212,7 @@ async def live(ws: WebSocket):
             await ws.receive_text()  # screens only listen, this just detects the disconnect
     except WebSocketDisconnect:
         screens.discard(ws)
+
+FRONTEND_DIST = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+if FRONTEND_DIST.is_dir():
+    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")

@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Cyberdeck Kiosk
+Exec=__PROJECT_DIR__/pi/start-kiosk.sh
+X-GNOME-Autostart-enabled=true
