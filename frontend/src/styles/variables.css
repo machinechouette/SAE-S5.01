@@ -2,7 +2,7 @@
   --fond: #04090a;
 
   --texte: #d7f5e4;
-  --texte-secondaire: #7fa391;
+  --texte-secondaire: #a3c7b5;
 
   --vert: #39ff88;
   --cyan: #00f0ff;
@@ -17,6 +17,7 @@
   --touche-y: #ffd23f; 
 
   --police: "JetBrains Mono", monospace;
+  --police-pixel: "Pixelify Sans", monospace;
 
   --taille-petite: 16px;
   --taille-normale: 24px;

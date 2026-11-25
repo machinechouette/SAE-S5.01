@@ -2,6 +2,12 @@
   position: relative;
   border: 1px solid var(--couleur-panneau);
   padding: 26px 22px 16px;
+  /* Pixel blocks in the 4 corners */
+  background:
+    linear-gradient(var(--couleur-panneau), var(--couleur-panneau)) top left / 8px 8px no-repeat,
+    linear-gradient(var(--couleur-panneau), var(--couleur-panneau)) top right / 8px 8px no-repeat,
+    linear-gradient(var(--couleur-panneau), var(--couleur-panneau)) bottom left / 8px 8px no-repeat,
+    linear-gradient(var(--couleur-panneau), var(--couleur-panneau)) bottom right / 8px 8px no-repeat;
 }
 
 .titre {
@@ -12,7 +18,9 @@
   padding: 0 8px;
   background: var(--fond);
   color: var(--couleur-panneau);
-  font-size: var(--taille-petite);
+  font-family: var(--police-pixel);
+  font-size: 17px;
+  line-height: 24px;
   font-weight: 400;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
 }

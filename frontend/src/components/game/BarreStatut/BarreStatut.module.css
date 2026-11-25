@@ -4,8 +4,19 @@
   align-items: center;
   min-height: 48px;
   padding: 0 16px;
-  background: var(--vert);
-  color: var(--fond);
+  /* Dark bar: solid green is kept for the action buttons */
+  border: 2px solid var(--vert);
+  background: rgba(57, 255, 136, 0.08);
+  color: var(--vert);
   font-size: 18px;
   font-weight: 700;
+}
+
+.urgent {
+  color: var(--magenta);
+  animation: clignote 1s steps(1) infinite;
+}
+
+@keyframes clignote {
+  50% { opacity: 0.4; }
 }

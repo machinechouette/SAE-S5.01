@@ -31,9 +31,10 @@ function toucheAuHasard(): Touche {
 type Props = {
   state: GameState;
   onReussi?: () => void;
+  onErreur?: () => void;
 };
 
-export default function Controles({ state, onReussi }: Props) {
+export default function Controles({ state, onReussi, onErreur }: Props) {
   const [sequence, setSequence] = useState<Touche[]>(() =>
     Array.from({ length: LONGUEUR_DEPART }, toucheAuHasard)
   );
@@ -80,6 +81,7 @@ export default function Controles({ state, onReussi }: Props) {
     if (touche !== sequence[position]) {
       bip(110, 0.4);
       setEtape("erreur");
+      onErreur?.();
       return;
     }
 

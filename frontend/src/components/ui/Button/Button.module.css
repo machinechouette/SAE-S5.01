@@ -4,10 +4,10 @@
   border: none;
   background: var(--couleur-bouton, var(--vert));
   color: var(--fond);
-  font-family: var(--police);
-  font-size: 22px;
+  font-family: var(--police-pixel);
+  font-size: 24px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   cursor: pointer;
 
   clip-path: polygon(
