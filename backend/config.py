@@ -7,8 +7,8 @@ TIMER_SECONDS = 20 * 60
 MAX_ANSWERS = 2
 PASSWORD = "HOPPER"
 
-# Modules 1 to 3 can be solved end to end; 4 and 5 still have no screen
-ACTIVE_MODULES = ("MODULE_1", "MODULE_2", "MODULE_3", "MODULE_4", "MODULE_5")
+# Modules 1 to 4 have a screen and a backend; module 5 is not defined in the GDD yet
+ACTIVE_MODULES = ("MODULE_1", "MODULE_2", "MODULE_3", "MODULE_4")
 
 # Module 2 - provisional values, to adjust after weighing the beads
 TARGET_WEIGHT_G = 12.0
