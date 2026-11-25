@@ -61,6 +61,7 @@
 }
 
 .secondaire { color: var(--texte-secondaire); font-size: 18px; }
+.erreur     { color: var(--magenta); font-size: 18px; }
 
 .saisie {
   display: flex;

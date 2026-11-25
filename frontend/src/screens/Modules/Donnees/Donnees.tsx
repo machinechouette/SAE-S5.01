@@ -9,22 +9,32 @@ import styles from "./Donnees.module.css";
 type Props = {
   state: GameState;
   usb: CleUsb | null;
-  onReponse?: (reponse: string) => void;
+  onReponse: (reponse: string) => Promise<GameState>;
 };
 
 export default function Donnees({ state, usb, onReponse }: Props) {
   const [ouvert, setOuvert] = useState<string | null>(null);
   const [reponse, setReponse] = useState("");
-  const [envoyee, setEnvoyee] = useState(false);
+  const [erreur, setErreur] = useState(false);
+  const [envoi, setEnvoi] = useState(false);
 
   const fichier = usb?.fichiers.find((f) => f.nom === ouvert) ?? null;
 
-  function envoyer(e?: FormEvent) {
+  async function envoyer(e?: FormEvent) {
     e?.preventDefault();
-    if (!reponse.trim()) return;
-    onReponse?.(reponse.trim());
-    setEnvoyee(true);
-    setReponse("");
+    if (!reponse.trim() || envoi) return;
+    setEnvoi(true);
+    try {
+      const nouvelEtat = await onReponse(reponse.trim());
+      if (nouvelEtat.phase === "MODULE_3") {
+        setErreur(true);
+        setReponse("");
+      }
+    } catch {
+      setErreur(true);
+    } finally {
+      setEnvoi(false);
+    }
   }
 
   return (
@@ -74,13 +84,13 @@ export default function Donnees({ state, usb, onReponse }: Props) {
           value={reponse}
           onChange={(e) => {
             setReponse(e.target.value);
-            setEnvoyee(false);
+            setErreur(false);
           }}
           autoComplete="off"
           spellCheck={false}
         />
         <Button onClick={envoyer}>VALIDER</Button>
-        {envoyee && <span className={styles.secondaire}>réponse envoyée</span>}
+        {erreur && <span className={styles.erreur}>message incorrect</span>}
       </form>
 
       <BarreStatut state={state} />
